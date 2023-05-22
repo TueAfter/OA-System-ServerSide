@@ -19,7 +19,7 @@ public class CodeGet {
         // 2、全局配置
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("E:\\云尚办公系统 xmxm\\guigu-oa-parent\\service-oa"+"/src/main/java");
+        gc.setOutputDir("C:\\Users\\honor\\Desktop\\demo\\zsy-oa\\service-oa"+"/src/main/java");
 
         gc.setServiceName("%sService");	//去掉Service接口的首字母I
         gc.setAuthor("atguigu");//加上作者
@@ -38,7 +38,7 @@ public class CodeGet {
         // 4、包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.atguigu");
-        pc.setModuleName("auth"); //模块名
+        pc.setModuleName("wechat"); //模块名
         pc.setController("controller");
         pc.setService("service");
         pc.setMapper("mapper");
@@ -47,7 +47,7 @@ public class CodeGet {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("sys_menu","sys_role_menu");
+        strategy.setInclude("wechat_menu");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
 

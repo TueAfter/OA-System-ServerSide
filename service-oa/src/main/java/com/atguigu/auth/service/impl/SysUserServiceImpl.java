@@ -3,9 +3,13 @@ package com.atguigu.auth.service.impl;
 import com.atguigu.auth.mapper.SysUserMapper;
 import com.atguigu.auth.service.SysUserService;
 import com.atguigu.model.system.SysUser;
+import com.atguigu.security.custom.LoginUserInfoHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -32,5 +36,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser getByUsername(String username) {
         return this.getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
+    }
+
+    //根据用户名进行查询
+    @Override
+    public SysUser getUserByUsername(String username) {
+        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper();
+        wrapper.eq(SysUser::getUsername,username);
+        SysUser sysUser = baseMapper.selectOne(wrapper);
+
+        return sysUser;
+    }
+
+    @Override
+    public Map<String, Object> getCurrentUser() {
+        SysUser sysUser = baseMapper.selectById(LoginUserInfoHelper.getUserId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", sysUser.getName());
+        map.put("phone", sysUser.getPhone());
+        map.put("deptName",sysUser.getDeptName());
+        map.put("postName",sysUser.getPostName());
+        return map;
     }
 }

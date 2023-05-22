@@ -1,5 +1,0 @@
-com\atzzsy\auth\controller\SysRoleController.class
-com\atzzsy\auth\service\SysRoleService.class
-com\atzzsy\auth\service\impl\SysRoleServiceImpl.class
-com\atzzsy\auth\ServiceAuthApplication.class
-com\atzzsy\auth\mapper\SysRoleMapper.class

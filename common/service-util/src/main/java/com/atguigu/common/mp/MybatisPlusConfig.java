@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.atguigu.auth.mapper")
+@MapperScan(basePackages = {"com/atguigu/auth/mapper","com/atguigu/process/mapper"})
 public class MybatisPlusConfig {
     /**
      * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false

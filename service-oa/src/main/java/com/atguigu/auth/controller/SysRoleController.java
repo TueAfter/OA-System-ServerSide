@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,21 +51,22 @@ public class SysRoleController {
 
 //    统一返回数据结果
     @ApiOperation("查询所有的角色")
-    @GetMapping("/findAll")
+    @GetMapping("findAll")
     public Result findAll(){
         List<SysRole> list = sysRoleService.list();
         //统一异常处理
-        try {
-            int i=10/0;
-        }catch (Exception e){
-            throw new ZsyException(201,"执行了自定义异常处理");
-        }
+//        try {
+//            int i=10/0;
+//        }catch (Exception e){
+//            throw new ZsyException(201,"执行了自定义异常处理");
+//        }
 
         return Result.ok(list);
     }
 
 //    条件分页查询
 //    page 当前页 limit每页显示记录数  SysRoleQueryVo 条件对象
+    @PreAuthorize("hasAnyAuthority('bnt.sysRole.list')")
     @ApiOperation("条件分页查询")
     @GetMapping("{page}/{limit}")
     public Result pageQueryRole(@PathVariable Long page,
@@ -86,6 +88,7 @@ public class SysRoleController {
     }
 
 //    添加角色
+    @PreAuthorize("hasAuthority('bnt.sysRole.add')")
     @ApiOperation("添加角色")
     @PostMapping("save")
     public Result save(@RequestBody SysRole role){
@@ -99,6 +102,7 @@ public class SysRoleController {
     }
 
 //    修改角色-根据id查询
+    @PreAuthorize("hasAnyAuthority('bnt.sysRole.list')")
     @ApiOperation("修改角色-根据id查询")
     @GetMapping("get/{id}")
     public Result get(@PathVariable Long id){
@@ -108,6 +112,7 @@ public class SysRoleController {
 
 
     //    修改角色-最终修改
+    @PreAuthorize("hasAuthority('bnt.sysRole.update')")
     @ApiOperation("修改角色")
     @PutMapping("update")
     public Result update(@RequestBody SysRole role){
@@ -121,6 +126,7 @@ public class SysRoleController {
     }
 
     //根据id删除
+    @PreAuthorize("hasAuthority('bnt.sysRole.remove')")
     @ApiOperation("根据id删除")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id){
@@ -134,6 +140,7 @@ public class SysRoleController {
 
     //批量删除
     //数组[1,2,3]
+    @PreAuthorize("hasAuthority('bnt.sysRole.remove')")
     @ApiOperation("批量删除")
     @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList){
